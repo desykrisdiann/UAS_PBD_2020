@@ -1,0 +1,178 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Data Pasien Rumah Sakit</title>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="container">
+    <center><h2>Data Pasien Rumah Sakit</h2></center>
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+    <table class="table table-striped" id="mytable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Pasien</th>
+          <th>Keluhan</th>
+          <th>Dokter</th>
+          <th>Poliklinik</th>
+          <th>Cara Bayar</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ no }}</td>
+          <td>{{ nama_pasien }}</td>
+          <td>{{ keluhan }}</td>
+          <td>{{ dokter }}</td>
+          <td>{{ poliklinik }}</td>
+          <td>{{ cara_bayar }}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ no }}" data-nama_pasien="{{ nama_pasien }}" data-keluhan="{{ keluhan }}" data-dokter="{{ dokter }}" data-poliklinik="{{ poliklinik }}" data-cara_bayar="{{ cara_bayar }}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ no }}">Delete</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+ 
+    <!-- Modal Add Produk-->
+      <form action="/save" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <div class="form-group">
+                   <input type="text" name="nama_pasien" class="form-control" placeholder="nama_pasien" required>
+               </div>
+ 
+               <div class="form-group">
+                   <input type="text" name="keluhan" class="form-control" placeholder="keluhan" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="dokter" class="form-control" placeholder="dokter" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="poliklinik" class="form-control" placeholder="poliklinik" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="cara_bayar" class="form-control" placeholder="cara_bayar" required>
+               </div>
+             </div>
+             
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+             </div>
+           </div>
+         </div>
+        </div>
+     </form>
+ 
+     <!-- Modal Update Produk-->
+   <form action="/update" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Pasien</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="nama_pasien" class="form-control nama_pasien" placeholder="Nama Pasien" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="keluhan" class="form-control keluhan" placeholder="Keluhan" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="dokter" class="form-control dokter" placeholder="Dokter" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="poliklinik" class="form-control poliklinik" placeholder="Poliklinik" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="cara_bayar" class="form-control cara_bayar" placeholder="Cara Bayar" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="no">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+ 
+     <!-- Modal Delete Produk-->
+      <form id="add-row-form" action="/delete" method="post">
+         <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body">
+                                                 <strong>Anda yakin mau menghapus data ini?</strong>
+                   </div>
+                   <div class="modal-footer">
+                                            <input type="hidden" name="no" class="form-control no" required>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                   </div>
+                    </div>
+            </div>
+         </div>
+     </form>
+ 
+<script src="/assets/js/jquery-3.5.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+            //tampilkan data ke modal untuk edit
+      $('#mytable').on('click','.edit',function(){
+        var no = $(this).data('id');
+        var nama_pasien = $(this).data('nama_pasien');
+        var keluhan = $(this).data('keluhan');
+        var dokter = $(this).data('dokter');
+        var poliklinik = $(this).data('poliklinik');
+        var cara_bayar = $(this).data('cara_bayar');
+        $('#EditModal').modal('show');
+        $('.no').val(no);
+        $('.nama_pasien').val(nama_pasien);
+        $('.keluhan').val(keluhan);
+        $('.dokter').val(dokter);
+        $('.poliklinik').val(poliklinik);
+        $('.cara_bayar').val(cara_bayar);
+      });
+            //tampilkan modal hapus record
+            $('#mytable').on('click','.delete',function(){
+        var no = $(this).data('id');
+        $('#DeleteModal').modal('show');
+        $('.no').val(no);
+      });
+ 
+    });
+</script>
+</body>
+</html>
